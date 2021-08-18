@@ -1,0 +1,19 @@
+
+#draw {
+	height: 600px;
+	width: 600px;
+	display: grid;
+	/*grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);*/
+
+}
+
+.pseudoPixel {
+	background-color: blue;
+	height: auto;
+	width: auto;
+}
+
+.pseudoPixelChange {
+	background-color: crimson;
+}
