@@ -1,33 +1,69 @@
 //Load script as browser parses the html, but wait till its finished before running this file
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener(`DOMContentLoaded`, function() {
 
-	let sideOfSquare = 8
-	  , drawSpaceSize = sideOfSquare * sideOfSquare;
+	const DRAW_SPACE_DIV = document.getElementById(`draw`);
+	const RESET_BUTTON = document.getElementById(`reset`);
+	const DEFAULT_COLOR = `#ffffff`;
 
-	const DRAW_DIV = document.getElementById('draw');
- 	
-	//function create_draw_space() {
 
+	let sideOfSquare = 16
+	  , drawSpaceSize = sideOfSquare * sideOfSquare
+	  , fillColor = DEFAULT_COLOR;
+
+	let mouseDown = false
+	  , mouseUp = true;
+
+  
+	//function make_draw_space() {
 	for (let i = 1; i <= drawSpaceSize; i += 1) {
 
-		let newDiv = document.createElement('div');
+		let pixel = document.createElement(`div`);
 
-		newDiv.classList.add('pseudoPixel');
+		pixel.classList.add(`pseudoPixel`);
+		pixel.style.backgroundColor = fillColor;
 
-		newDiv.addEventListener(`mouseenter`, change_color);
+		pixel.addEventListener(`mouseenter`, draw_color);
+		pixel.addEventListener(`mousedown`, is_mouse_down);
+		pixel.addEventListener(`mouseup`, is_mouse_up);
 
-		DRAW_DIV.appendChild(newDiv);
+
+		DRAW_SPACE_DIV.appendChild(pixel);
 	}
 
-	document.getElementById('draw').style.gridTemplateColumns = `repeat(${sideOfSquare}, 1fr)`;
-	document.getElementById('draw').style.gridTemplateRows = `repeat(${sideOfSquare}, 1fr)`;
-
+	document.getElementById(`draw`).style.gridTemplateColumns = `repeat(${sideOfSquare}, 1fr)`;
+	document.getElementById(`draw`).style.gridTemplateRows = `repeat(${sideOfSquare}, 1fr)`;
 	//}
 
-	
 
-	function change_color(e) {
-		e.target.classList.remove(`pseudoPixel`);
-		e.target.classList.add(`pseudoPixelChange`);
+	function is_mouse_down() {
+		mouseDown = true;
+		mouseUp = false;
 	}
+	function is_mouse_up() {
+		mouseDown = false;
+		mouseUp = true;
+	}
+
+	function draw_color(e) {
+		console.log(mouseDown, mouseUp);
+		if (mouseDown) {
+			e.target.style.backgroundColor = `#000000`;
+		} else {
+			//Do nothing!
+		}
+	}
+
+	RESET_BUTTON.addEventListener(`click`, reset_background_color);
+
+	function reset_background_color() {
+		
+		let pseudoPixels = document.querySelectorAll(`.pseudoPixel`);
+
+		pseudoPixels.forEach(function(pspElement) {
+			pspElement.style.backgroundColor = fillColor;
+		});
+	}
+
+
+
 });
