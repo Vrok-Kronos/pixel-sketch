@@ -10,8 +10,7 @@ document.addEventListener(`DOMContentLoaded`, function() {
 	  , drawSpaceSize = sideOfSquare * sideOfSquare
 	  , fillColor = DEFAULT_COLOR;
 
-	let mouseDown = false
-	  , mouseUp = true;
+	let mouseDown = false;
 
   
 	//function make_draw_space() {
@@ -37,15 +36,13 @@ document.addEventListener(`DOMContentLoaded`, function() {
 
 	function is_mouse_down() {
 		mouseDown = true;
-		mouseUp = false;
 	}
 	function is_mouse_up() {
 		mouseDown = false;
-		mouseUp = true;
 	}
 
 	function draw_color(e) {
-		console.log(mouseDown, mouseUp);
+		console.log(mouseDown);
 		if (mouseDown) {
 			e.target.style.backgroundColor = `#000000`;
 		} else {
